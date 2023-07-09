@@ -1,0 +1,111 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+  <div class="pc-content">
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <style>
+        /* Stili per la formattazione della pagina */
+        body {
+          font-family: Arial, sans-serif;
+        }
+
+        h1 {
+          margin-bottom: 20px;
+        }
+
+        .macro-location {
+          margin-bottom: 20px;
+        }
+
+        .location {
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 10px;
+          font-size: 16px;
+        }
+
+        table {
+          border-collapse: collapse;
+          width: 90%;
+        }
+
+        th,
+        td {
+          text-align: left;
+          padding: 8px;
+          border: 1px solid #ddd;
+          font-size: 16px;
+        }
+
+        th {
+          background-color: #f2f2f2;
+        }
+
+        label {
+          margin-left: 10px;
+        }
+
+        th:first-child,
+        td:first-child {
+          width: 60%;
+          max-width: 300px;
+        }
+
+        th.second-child,
+        td.second-child {
+          width: 20%;
+          max-width: 100px;
+        }
+      </style>
+
+<div class="container mt-4">
+  <h1>Esegui checklist ambulanza</h1>
+
+  <!-- Container per le macro posizioni -->
+  <div id="macro-locations-container">
+      {% for category in categories %}
+      <div class="macro-location">
+          <h2>{{ category.category_name }}</h2>
+          {% for location in category.locations %}
+          <table class="location">
+              <tr>
+                  <td colspan="3">{{ location.location_name }}</td>
+              </tr>
+              <tr>
+                  <th>Oggetti</th>
+                  <th>Quantità</th>
+                  <th>Seleziona</th>
+              </tr>
+              {% for object in location.location_objects %}
+              <tr>
+                  <td>{{ object.object_name }}</td>
+                  <td>{{ object.object_quantity }}</td>
+                  <td><label for="{{ object.object_name }}"><input type="checkbox" id="{{ object.object_name }}" name="{{ object.object_name }}"></label></td>
+              </tr>
+              {% endfor %}
+          </table>
+          {% endfor %}
+      </div>
+      {% endfor %}
+  </div>
+</div>
+
+
+      <!-- [ sample-page ] end -->
+    </div>
+    <!-- [ Main Content ] end -->
+  </div>
+</div>
+<!-- [ Main Content ] end -->
+{% endblock content %}
+
+{% block extra_js %}
+<!-- Apex Chart -->
+<script src="{{ url_for('static', filename='assets/js/plugins/apexcharts.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/pages/dashboard-default.js') }}"></script>
+<!-- [Page Specific JS] end -->
+{% endblock extra_js %}
